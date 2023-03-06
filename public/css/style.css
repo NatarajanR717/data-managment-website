@@ -38,7 +38,21 @@ nav .navlinks ul li a{
    color: #000;
    font-weight: 500;
 }
-
+.container{
+   max-width: 250px;
+   flex-shrink: 0;
+   padding-top: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+select{
+   padding: 2px;
+   margin: 0 10px;
+   outline: none;
+   cursor: pointer;
+   background: transparent;
+}
 form table{
    max-width: 1280px;
    margin-top: 50px;
@@ -116,11 +130,35 @@ table td a{
    border: none;
    border-radius: 3px; 
 }
-
-
-
-
-
+.bottom-field{
+   max-width: 1280px;
+   padding: 20px;
+   margin-top: 20px;
+}
+.pagination{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.pagination li{
+   padding: 2px;
+   margin: 10px;
+   flex-shrink: 0;
+   text-align: center;
+   border-radius: 5px;
+   border: 1px solid #3D92DF;
+}
+.pagination li.active{
+   background-color: #3D92DF;
+   color: #fff;
+   border: #555;
+}
+.pagination li a{
+   color: inherit;
+   padding: 3px 8px;
+   display: block;
+   font-size: 13px;
+}
 
 
 
