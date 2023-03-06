@@ -1,0 +1,14 @@
+<% for(var i = 0; i < users.length; i++) { %>
+<tr>
+   <td><%= i + 1 %></td>
+   <td><img src="<%= users[i].image %>" width="50"></td>
+   <td><%= users[i].name %></td>
+   <td><%= users[i].phone %></td>
+   <td><%= users[i].email %></td>
+   <td><%= users[i].course %></td>
+   <td><%= users[i].price %></td>
+   <td><a href="/update-user?id=<%= users[i]._id %>"><span><i class="uil uil-edit"></i></span></a></td>
+   <td><a href="" class="delete" data-id=<%= users[i]._id %>><span><i class="uil uil-times-circle"></i></span></a></td>
+   <td><a href=""><span><i class="uil uil-notes"></i></span></a></td>
+</tr>
+<% } %>
