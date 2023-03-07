@@ -30,22 +30,18 @@ app.use(session({
 }));
 app.use(express.static(__dirname + '/public'));
 
-// app.use((req,res,next) =>{
-//    res.locals.message = req.session.cookie,message;
-//    delete req.session.message;
-//    next();
-// });
+
 
 // route prefix
 app.use("",require("./server/routes/routes"));
 
 // set template engine
 app.set("view engine", "ejs");
-// app.set("views",path.join(__dirname,"public/stylesheets")); 
 
 app.use("/css",express.static(path.join(__dirname,"public/css")));
 app.use("/images",express.static(path.join(__dirname,"public/images")));
 app.use("/js",express.static(path.join(__dirname,"public/js")));
+app.use(express.static("uploads"));
 
 
 app.listen(PORT,()=>{

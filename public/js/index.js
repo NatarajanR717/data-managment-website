@@ -47,11 +47,13 @@ if(window.location.pathname == "/"){
 }
 
 
-
+// Pagination
 
 const tbody = document.getElementById("tbody");
 const pageUi = document.querySelector(".pagination");
 const itemShow = document.querySelector("#itemperpage");
+const prev = document.getElementById("prev");
+const next = document.getElementById("next");
 var tr = tbody.querySelectorAll("tr");
 var emptyBox = [];
 var index = 1;
@@ -60,6 +62,13 @@ var itemParpage = 4;
 for(let i =0;i<tr.length;i++){
    emptyBox.push(tr[i]);
 }
+
+prev.addEventListener('click',(e)=>{
+   e.preventDefault();
+})
+next.addEventListener('click',(e)=>{
+   e.preventDefault();
+})
 
 itemShow.onchange = giveTrPerPage;
 

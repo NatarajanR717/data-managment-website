@@ -1,0 +1,58 @@
+<!-- Include header-->
+<%- include('include/_header') %>
+<!-- Include header-->
+<div class="cards">
+   <div class="card">
+   <table>
+      <tr>
+         <th>PHOTO</th>
+         <td><img src="<%= users.image %>" width="50" height="50"></td>
+      </tr>
+      <tr>
+         <th>ID</th>
+         <td> <%= users._id %></td>
+      </tr>
+      <tr>
+         <th>NAME</th>
+         <td> <%= users.name %></td>
+      </tr>
+      <tr>
+         <th>EMAIL</th>
+         <td> <%= users.email %></td>
+      </tr>
+      <tr>
+         <th>PHONE</th>
+         <td> <%= users.phone %></td>
+      </tr>
+      <tr>
+         <th>PRICE</th>
+         <td> <%= users.price %></td>
+      </tr>
+      <tr>
+         <th>COURSE</th>
+         <td> <%= users.course %></td>
+      </tr>
+      <tr>
+         <th>DATE</th>
+         <td> <%= users.created %></td>
+      </tr>
+      <tr>
+         <th>Linkedin</th>
+         <td><a href="<%= users.link1 %>"><i class="uil uil-linkedin"></i></a></td>
+      </tr>
+      <tr>
+         <th>Github</th>
+         <td><a href="<%= users.link2 %>"><i class="uil uil-github"></i></a></td>
+      </tr>
+      <tr>
+         <th>Behance</th>
+         <td><a href="<%= users.link3 %>"><i class="uil uil-behance"></i></a></td>
+      </tr>
+   </table>
+</div>
+</div>
+
+
+<!-- Include footer-->
+<%- include('include/_footer') %>
+<!-- Include footer-->

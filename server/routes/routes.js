@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const User = require("../models/users");
 const multer = require("multer");
-
+const fs = require('fs');
 // image upload
 var storage = multer.diskStorage({
    destination: function(req,file,cb){
@@ -70,11 +70,22 @@ router.get("/api/users",(req,res) =>{
 })
 
 // update user by user id
-router.put("/api/users/:id",(req,res) =>{
+router.put("/api/users/:id",upload,(req,res) =>{
    if(!req.body){
       return res.status(400).send({message: "data to update can not b empty"});
    }
    const id = req.params.id;
+   let newImage = "";
+   if(req.file){
+      newImage = req.file.filename;
+      try{
+         fs.unlinkSync("./uploads/"+ req.body.oldimage);
+      }catch(err){
+         console.log(err);
+      } 
+      } else{
+         newImage = req.body.oldimage;
+      }
    User.findByIdAndUpdate(id,req.body,{useFindAndModify: true})
    .then(data =>{
       if(!data){
@@ -125,6 +136,13 @@ router.get("/update-user",(req,res) =>{
    
 });
 
+router.get("/display-user",(req,res) =>{
+   axios.get('http://localhost:8080/api/users',{params: {id:req.query.id}}).then(function(userdata){
+      res.render("display",{title: "Display user",users:userdata.data});
+   }).catch(err =>{
+      res.send(err);
+   });
+});
 module.exports = router;
 
 
