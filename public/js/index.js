@@ -17,7 +17,7 @@ $("#updateuser").submit(function(event){
    var request = {
       "url" : `http://localhost:8080/api/users/${data.id}`,
       "method" : "PUT",
-      "data" : data
+      "data" : data,
   }
 
   $.ajax(request).done(function(response){
@@ -54,7 +54,7 @@ const pageUi = document.querySelector(".pagination");
 const itemShow = document.querySelector("#itemperpage");
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
-var tr = tbody.querySelectorAll("tr");
+const tr = tbody.querySelectorAll("tr");
 var emptyBox = [];
 var index = 1;
 var itemParpage = 4;

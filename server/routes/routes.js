@@ -5,7 +5,7 @@ const User = require("../models/users");
 const multer = require("multer");
 const fs = require('fs');
 // image upload
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
    destination: function(req,file,cb){
       cb(null, "./uploads");
    },
@@ -14,10 +14,9 @@ var storage = multer.diskStorage({
    },
 });
 
-var upload = multer({
+let upload = multer({
    storage: storage,
 }).single("image");
-
 
 
 // insert user into database
@@ -38,7 +37,6 @@ router.post("/api/users",upload,(req,res) =>{
       created: req.body.created,
    });
    user.save(user).then(data =>{
-      // res.send(data);
       res.redirect('/add-user');
    }).catch(err =>{
       res.status(500).send({message: err.message || "some error occur"});
@@ -70,23 +68,34 @@ router.get("/api/users",(req,res) =>{
 })
 
 // update user by user id
-router.put("/api/users/:id",upload,(req,res) =>{
+router.put("/api/users/:id",upload,async (req,res) =>{
    if(!req.body){
       return res.status(400).send({message: "data to update can not b empty"});
    }
-   const id = req.params.id;
-   let newImage = "";
-   if(req.file){
-      newImage = req.file.filename;
-      try{
-         fs.unlinkSync("./uploads/"+ req.body.oldimage);
-      }catch(err){
-         console.log(err);
-      } 
-      } else{
-         newImage = req.body.oldimage;
-      }
-   User.findByIdAndUpdate(id,req.body,{useFindAndModify: true})
+   let id = req.params.id;
+   // let newImage = "";
+   // if(req.file){
+   //    newImage = req.file.filename;
+   //    try{
+   //       fs.unlinkSync("./uploads/" + req.body.oldimage);
+   //    }catch(err){
+   //       console.log(err);
+   //    } 
+   //    } else{
+   //       newImage = req.body.oldimage;
+   //    }
+   await User.findByIdAndUpdate(id,{
+      name: req.body.name,
+      phone: req.body.phone,
+      email: req.body.email,
+      course: req.body.course,
+      price: req.body.price,
+      image: req.file.filename,
+      link1: req.body.link1,
+      link2: req.body.link2,
+      link3: req.body.link3, 
+      created: req.body.created,
+   })
    .then(data =>{
       if(!data){
          res.status(404).send({message: `cannot update user with ${id}.Maybe user not found`})

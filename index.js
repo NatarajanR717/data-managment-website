@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config();
-const session = require('express-session');
 const PORT = process.env.PORT || 4000;
 
 
@@ -22,12 +21,6 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(express.urlencoded({extended: false}));
-
-app.use(session({
-   secret:"my secret key",
-   saveUninitialized:true,
-   resave:false,
-}));
 app.use(express.static(__dirname + '/public'));
 
 
