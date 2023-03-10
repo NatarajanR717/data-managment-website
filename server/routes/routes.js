@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const User = require("../models/users");
 const multer = require("multer");
+const path = require("path");
 const fs = require('fs');
 // image upload
 let storage = multer.diskStorage({
@@ -68,29 +69,22 @@ router.get("/api/users",(req,res) =>{
 })
 
 // update user by user id
-router.put("/api/users/:id",upload,async (req,res) =>{
+router.put("/api/users/:id",upload,(req,res) =>{
    if(!req.body){
       return res.status(400).send({message: "data to update can not b empty"});
    }
    let id = req.params.id;
-   // let newImage = "";
-   // if(req.file){
-   //    newImage = req.file.filename;
-   //    try{
-   //       fs.unlinkSync("./uploads/" + req.body.oldimage);
-   //    }catch(err){
-   //       console.log(err);
-   //    } 
-   //    } else{
-   //       newImage = req.body.oldimage;
-   //    }
-   await User.findByIdAndUpdate(id,{
+   let imagePath = path.join(__dirname, './uploads' + req.file.filename);
+
+    // read image file and update database record
+   let newImage = fs.readFileSync(imagePath);
+   User.findByIdAndUpdate(id,{
       name: req.body.name,
       phone: req.body.phone,
       email: req.body.email,
       course: req.body.course,
       price: req.body.price,
-      image: req.file.filename,
+      image: newImage,
       link1: req.body.link1,
       link2: req.body.link2,
       link3: req.body.link3, 
@@ -101,6 +95,7 @@ router.put("/api/users/:id",upload,async (req,res) =>{
          res.status(404).send({message: `cannot update user with ${id}.Maybe user not found`})
       } else{
          res.send(data);
+         fs.unlinkSync(imagePath);
       }
    }).catch((err) =>{
       res.status(500).send({messgae: "Error update user information"})
@@ -146,7 +141,8 @@ router.get("/update-user",(req,res) =>{
 });
 
 router.get("/display-user",(req,res) =>{
-   axios.get('http://localhost:8080/api/users',{params: {id:req.query.id}}).then(function(userdata){
+   axios.get('http://localhost:8080/api/users',{params: {id:req.query.id}}).then((userdata) =>{
+      userdata.data.created = new Date (userdata.data.created).toLocaleDateString();
       res.render("display",{title: "Display user",users:userdata.data});
    }).catch(err =>{
       res.send(err);

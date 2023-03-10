@@ -9,7 +9,7 @@
             <input type="hidden" name="id" value="<%= users._id %>">
             <div class="field"><input type="text" class="name" name="name" id="name" placeholder="name" value="<%= users.name %>"></div>
             <div class="field"><input type="file" id="image" name="image" multiple ></div>
-            <input type="hidden" name="oldimage" value="<%= users.image %>">
+            <input type="hidden" name="_method" value="<%= users.image %>">
             <div class="field"><input type="tel" class="phone" id="phone" placeholder="Phone" name="phone" value="<%= users.phone %>"></div>
             <div class="field"><input type="email" class="email" id="email" placeholder="Email" name="email" value="<%= users.email %>"></div>
             <div class="field"><input type="text" class="course" id="course" placeholder="Course" name="course" value="<%= users.course %>"></div>
